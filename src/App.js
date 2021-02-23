@@ -7,8 +7,11 @@ class App extends Component {
 
   componentDidMount() {
     window
-      .fetch("https://collab-text.herokuapp.com/notes", (req, res, next) => {
-        res.header("Access-Control-Allow-Origin", "https://localhost:3000");
+      .fetch("https://collab-text.herokuapp.com", (req, res, next) => {
+        res.header(
+          "Access-Control-Allow-Origin",
+          "https://daiane.codes/collab-text-js/"
+        );
         next();
       })
       .then((data) => {
@@ -18,7 +21,7 @@ class App extends Component {
       });
 
     const cable = ActionCable.createConsumer(
-      "wss://https://collab-text.herokuapp.com/notes//cable"
+      "wss://https://collab-text.herokuapp.com//cable"
     );
     this.sub = cable.subscriptions.create("NotesChannel", {
       received: this.handleReceiveNewText,
