@@ -6,14 +6,19 @@ class App extends Component {
   state = { text: "" };
 
   componentDidMount() {
-    window.fetch("https://collab-text.herokuapp.com/notes").then((data) => {
-      data.json().then((res) => {
-        this.setState({ text: res.text });
+    window
+      .fetch("https://collab-text.herokuapp.com/notes", (req, res, next) => {
+        res.header("Access-Control-Allow-Origin", "https://localhost:3000");
+        next();
+      })
+      .then((data) => {
+        data.json().then((res) => {
+          this.setState({ text: res.text });
+        });
       });
-    });
 
     const cable = ActionCable.createConsumer(
-      "wss://collab-text.herokuapp.com/notes//cable"
+      "wss://https://collab-text.herokuapp.com/notes//cable"
     );
     this.sub = cable.subscriptions.create("NotesChannel", {
       received: this.handleReceiveNewText,
