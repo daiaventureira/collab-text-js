@@ -6,14 +6,14 @@ class App extends Component {
   state = { text: "" };
 
   componentDidMount() {
-    window.fetch("https://collab-text.herokuapp.com/").then((data) => {
+    window.fetch("https://lit-brook-48307.herokuapp.com/").then((data) => {
       data.json().then((res) => {
         this.setState({ text: res.text });
       });
     });
 
     const cable = ActionCable.createConsumer(
-      "wss://https://collab-text.herokuapp.com//cable"
+      "ws://https://collab-text.herokuapp.com//cable"
     );
     this.sub = cable.subscriptions.create("NotesChannel", {
       received: this.handleReceiveNewText,
