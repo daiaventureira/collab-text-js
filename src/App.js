@@ -6,7 +6,7 @@ class App extends Component {
   state = { text: "" };
 
   componentDidMount() {
-    window.fetch("http://localhost:3001/notes/1").then((data) => {
+    window.fetch("https://collab-text.herokuapp.com/").then((data) => {
       data.json().then((res) => {
         this.setState({ text: res.text });
       });
