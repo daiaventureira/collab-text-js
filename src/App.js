@@ -12,7 +12,9 @@ class App extends Component {
       });
     });
 
-    const cable = ActionCable.createConsumer("ws://localhost:3001/cable");
+    const cable = ActionCable.createConsumer(
+      "wss://https://collab-text.herokuapp.com//cable"
+    );
     this.sub = cable.subscriptions.create("NotesChannel", {
       received: this.handleReceiveNewText,
     });
