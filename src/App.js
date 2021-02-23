@@ -13,7 +13,7 @@ class App extends Component {
     });
 
     const cable = ActionCable.createConsumer(
-      "ws://https://collab-text.herokuapp.com//cable"
+      "wss://https://collab-text.herokuapp.com//cable"
     );
     this.sub = cable.subscriptions.create("NotesChannel", {
       received: this.handleReceiveNewText,
